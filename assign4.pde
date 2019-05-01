@@ -14,6 +14,7 @@ final int SOIL_ROW_COUNT = 24;
 final int SOIL_SIZE = 80;
 
 int[][] soilHealth;
+int[][] stonesHealth;
 
 final int START_BUTTON_WIDTH = 144;
 final int START_BUTTON_HEIGHT = 60;
@@ -98,6 +99,8 @@ void setup() {
 		}
 	}
 
+
+
 	// Initialize soidiers and their position
 
 	// Initialize cabbages and their position
@@ -157,47 +160,74 @@ void draw() {
 
 				// Change this part to show soil and stone images based on soilHealth value
 				// NOTE: To avoid errors on webpage, you can either use floor(j / 4) or (int)(j / 4) to make sure it's an integer.
+
 				int areaIndex = floor(j / 4);
 				image(soils[areaIndex][4], i * SOIL_SIZE, j * SOIL_SIZE);
-        //stone
-              //1-8          
-           for(int a=0 ; a<8 ; a++){
-           float x=a*80;
-           float y=80*a;
-           image(stones[0][4],x,y);
+        
+       
+        //stone               
+          //1-8          
+           for(int a=0 ; a<8 ; a++){                        
+           float x=a;
+           float y=a;
+           image(stones[0][4],x*80,y*80);
+          //health 
+           soilHealth[a][a]=30;         
+          
           }
           //9-16
-          for(int w=0 ; w<8 ; w+=7){
-             for(int a=0 ; a<8 ; a+=4){
-                float x1=80+a*80;
-                float x2=x1+80;
-                float y1=80*(8+w);         
-                image(stones[0][4],x1,y1);
-                image(stones[0][4],x2,y1);        
+            for(int w=0 ; w<8 ; w+=7){
+               for(int a=0 ; a<8 ; a+=4){
+                float x1=a+1;
+                float x2=a+2;
+                float y1=w+8;         
+                image(stones[0][4],x1*80,y1*80);
+                image(stones[0][4],x2*80,y1*80); 
+              //health 
+                soilHealth[a+1][8+w]=30;                 
+                soilHealth[a+2][8+w]=30; 
+                
               }
           }
               for(int w=0 ; w<8 ; w+=4){
-               for(int a=0 ; a<12 ; a+=4){
-                float x1=-80+a*80;
-                float x2=x1+80;
-                float y1=80*(9+w);   
-                float y2=y1+80; 
-                image(stones[0][4],x1,y1);
-                image(stones[0][4],x2,y1); 
-                image(stones[0][4],x1,y2);
-                image(stones[0][4],x2,y2);   
+               for(int a=3 ; a<8 ; a+=4){
+                 for(int b=0 ; b<8 ; b+=4){
+                float x1=a;
+                float x2=b;
+                float y1=w+9;   
+                float y2=w+9+1; 
+                image(stones[0][4],x1*80,y1*80);
+                image(stones[0][4],x2*80,y1*80); 
+                image(stones[0][4],x1*80,y2*80);
+                image(stones[0][4],x2*80,y2*80);
+               //health 
+               
+                soilHealth[a][w+9]=30;                 
+                soilHealth[b][w+9]=30;
+                soilHealth[a][w+9+1]=30;                 
+                soilHealth[b][w+9+1]=30;  
+                
+                 }
                 }
               }
               
               for(int a=0 ; a<8 ; a+=4){
-                float x1=80+a*80;
-                float x2=x1+80;
-                float y1=80*(11);
-                float y2=y1+80; 
-                image(stones[0][4],x1,y1);
-                image(stones[0][4],x2,y1);  
-                image(stones[0][4],x1,y2);
-                image(stones[0][4],x2,y2);  
+                float x1=a+1;
+                float x2=a+1+1;
+                float y1=11;
+                float y2=12;
+                image(stones[0][4],x1*80,y1*80);
+                image(stones[0][4],x2*80,y1*80);  
+                image(stones[0][4],x1*80,y2*80);
+                image(stones[0][4],x2*80,y2*80);  
+               //health                
+                soilHealth[a+1][11]=30;                 
+                soilHealth[a+1+1][11]=30;
+                soilHealth[a+1][12]=30;                 
+                soilHealth[a+1+1][12]=30; 
+                
+              }
+                                            
               }
                                                        
           //17-24    
