@@ -227,8 +227,7 @@ void draw() {
                 soilHealth[a+1+1][12]=30; 
                 
               }
-                                            
-              }
+                                                
                                                        
           //17-24    
         for(int w=-6;w<8;w+=3){  
