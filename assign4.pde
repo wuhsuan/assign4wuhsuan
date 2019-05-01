@@ -142,7 +142,7 @@ void draw() {
 	    // CAREFUL!
 	    // Because of how this translate value is calculated, the Y value of the ground level is actually 0
 		pushMatrix();
-		translate(0, max(SOIL_SIZE * -18, SOIL_SIZE * 1 - playerY));
+		translate(0, max(SOIL_SIZE * -18, SOIL_SIZE * 1 - playerY)); //??why use max
 
 		// Ground
 
@@ -159,7 +159,73 @@ void draw() {
 				// NOTE: To avoid errors on webpage, you can either use floor(j / 4) or (int)(j / 4) to make sure it's an integer.
 				int areaIndex = floor(j / 4);
 				image(soils[areaIndex][4], i * SOIL_SIZE, j * SOIL_SIZE);
+        //stone
+              //1-8          
+           for(int a=0 ; a<8 ; a++){
+           float x=a*80;
+           float y=80*a;
+           image(stones[0][4],x,y);
+          }
+          //9-16
+          for(int w=0 ; w<8 ; w+=7){
+             for(int a=0 ; a<8 ; a+=4){
+                float x1=80+a*80;
+                float x2=x1+80;
+                float y1=80*(8+w);         
+                image(stones[0][4],x1,y1);
+                image(stones[0][4],x2,y1);        
+              }
+          }
+              for(int w=0 ; w<8 ; w+=4){
+               for(int a=0 ; a<12 ; a+=4){
+                float x1=-80+a*80;
+                float x2=x1+80;
+                float y1=80*(9+w);   
+                float y2=y1+80; 
+                image(stones[0][4],x1,y1);
+                image(stones[0][4],x2,y1); 
+                image(stones[0][4],x1,y2);
+                image(stones[0][4],x2,y2);   
+                }
+              }
+              
+              for(int a=0 ; a<8 ; a+=4){
+                float x1=80+a*80;
+                float x2=x1+80;
+                float y1=80*(11);
+                float y2=y1+80; 
+                image(stones[0][4],x1,y1);
+                image(stones[0][4],x2,y1);  
+                image(stones[0][4],x1,y2);
+                image(stones[0][4],x2,y2);  
+              }
+                                                       
+          //17-24    
+        for(int w=-6;w<8;w+=3){  
+          for(int a=0; a<8; a++){     
+            float x=a*80+80*w;
+            float y=80*23-80*a;     
+            image(stones[0][4],x,y);      
+           }
+        }
+        for(int w=-5;w<8;w+=3){  
+          for(int a=0; a<8; a++){     
+            float x=a*80+80*w;
+            float y=80*23-80*a;     
+            image(stones[0][4],x,y);      
+           }
+        }
+        for(int w=-5;w<8;w+=3){  
+          for(int a=0; a<8; a++){     
+            float x=a*80+80*w;
+            float y=80*23-80*a;     
+            image(stones[1][4],x,y);      
+           }
+        }
+
+
 				
+
 			}
 		}
 
