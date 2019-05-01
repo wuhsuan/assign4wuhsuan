@@ -14,7 +14,7 @@ final int SOIL_ROW_COUNT = 24;
 final int SOIL_SIZE = 80;
 
 int[][] soilHealth;
-int[][] stonesHealth;
+
 
 final int START_BUTTON_WIDTH = 144;
 final int START_BUTTON_HEIGHT = 60;
@@ -227,30 +227,41 @@ void draw() {
                 soilHealth[a+1+1][12]=30; 
                 
               }
-                                                
                                                        
-          //17-24    
-        for(int w=-6;w<8;w+=3){  
+        //17-24    
+       
+        for(int w=18;w<24;w+=3){  
+            int count=2;
+            count+=3;
+          for(int a=0; a<=count; a++){                        
+            float x=a;
+            float y=w-a;     
+            image(stones[0][4],x*80,y*80);  
+           //health 
+           /*
+            soilHealth[a+w][23-a]=30;
+            */                 
+           }
+        }
+        
+        for(int w=-5;w<8;w+=3){  
           for(int a=0; a<8; a++){     
-            float x=a*80+80*w;
-            float y=80*23-80*a;     
-            image(stones[0][4],x,y);      
+            float x=a+w;
+            float y=23-a;     
+            image(stones[0][4],x*80,y*80);
+          
+            
            }
         }
         for(int w=-5;w<8;w+=3){  
           for(int a=0; a<8; a++){     
-            float x=a*80+80*w;
-            float y=80*23-80*a;     
-            image(stones[0][4],x,y);      
+            float x=a+w;
+            float y=23-a;     
+            image(stones[1][4],x*80,y*80);
+           
            }
         }
-        for(int w=-5;w<8;w+=3){  
-          for(int a=0; a<8; a++){     
-            float x=a*80+80*w;
-            float y=80*23-80*a;     
-            image(stones[1][4],x,y);      
-           }
-        }
+        
 
 
 				
@@ -405,6 +416,10 @@ void draw() {
 		popMatrix();
 
 		// Health UI
+
+      for(int i=0 ; i<playerHealth  ; i++){
+        image(life,10+70*i,10);
+      }
 
 		break;
 
