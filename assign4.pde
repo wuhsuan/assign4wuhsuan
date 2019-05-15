@@ -1,4 +1,4 @@
-PImage title, gameover, startNormal, startHovered, restartNormal, restartHovered;
+  PImage title, gameover, startNormal, startHovered, restartNormal, restartHovered;
 PImage groundhogIdle, groundhogLeft, groundhogRight, groundhogDown;
 PImage bg, life, cabbage, stone1, stone2, soilEmpty;
 PImage soldier;
@@ -91,13 +91,36 @@ void setup() {
 	playerHealth = 2;
 
 	// Initialize soilHealth
-	soilHealth = new int[SOIL_COL_COUNT][SOIL_ROW_COUNT];
-	for(int i = 0; i < soilHealth.length; i++){
-		for (int j = 0; j < soilHealth[i].length; j++) {
-			 // 0: no soil, 15: soil only, 30: 1 stone, 45: 2 stones
-			soilHealth[i][j] = 15;
-		}
-	}
+	  soilHealth = new int[SOIL_COL_COUNT][SOIL_ROW_COUNT];
+  for(int i = 0; i < soilHealth.length; i++){
+    for (int j = 0; j < soilHealth[i].length; j++) {
+      // 0/15/30/45: null/soil/1stone/2stones
+      soilHealth[i][j] = 15;
+      // section1
+      if(i==j)soilHealth[i][j] = 30;
+      // section2
+      if(j==8 || j==11 || j==12 || j==15){
+        if(i==1 || i==2 || i==5 || i==6) soilHealth[i][j] = 30;
+      }
+      if(j==9 || j==10 || j==13 || j==14){
+        if(i==0 || i==3 || i==4 || i==7) soilHealth[i][j] = 30;
+      }
+      // section3
+      if(j==16 || j==19 || j==22){
+        if(i==1 || i==4 || i==7) soilHealth[i][j] = 30;
+        if(i==2 || i==5) soilHealth[i][j] = 45;
+      }
+      if(j==17 || j==20 || j==23){
+        if(i==0 || i==3 || i==6) soilHealth[i][j] = 30;
+        if(i==1 || i==4 || i==7) soilHealth[i][j] = 45;
+      }
+      if(j==18 || j==21 ){
+        if(i==2 || i==5) soilHealth[i][j] = 30;
+        if(i==0 || i==3 || i==6) soilHealth[i][j] = 45;
+      }
+    }
+  }
+
 
 
 
@@ -163,111 +186,146 @@ void draw() {
 
 				int areaIndex = floor(j / 4);
 				image(soils[areaIndex][4], i * SOIL_SIZE, j * SOIL_SIZE);
+  }
+}
         
        
-        //stone               
-          //1-8          
-           for(int a=0 ; a<8 ; a++){                        
-           float x=a;
-           float y=a;
-           image(stones[0][4],x*80,y*80);
-          //health 
-           soilHealth[a][a]=30;         
-          
+  //stone
+  
+    //1-8
+    
+        for(int i = 0; i <8; i++){
+        for(int j= 0; j <8; j++){
+        if(i==j){
+        image(stones[0][4], i * SOIL_SIZE, j * SOIL_SIZE);
+        soilHealth[i][j] = 30;
+            }
           }
-          //9-16
-            for(int w=0 ; w<8 ; w+=7){
-               for(int a=0 ; a<8 ; a+=4){
-                float x1=a+1;
-                float x2=a+2;
-                float y1=w+8;         
-                image(stones[0][4],x1*80,y1*80);
-                image(stones[0][4],x2*80,y1*80); 
-              //health 
-                soilHealth[a+1][8+w]=30;                 
-                soilHealth[a+2][8+w]=30; 
-                
-              }
-          }
-              for(int w=0 ; w<8 ; w+=4){
-               for(int a=3 ; a<8 ; a+=4){
-                 for(int b=0 ; b<8 ; b+=4){
-                float x1=a;
-                float x2=b;
-                float y1=w+9;   
-                float y2=w+9+1; 
-                image(stones[0][4],x1*80,y1*80);
-                image(stones[0][4],x2*80,y1*80); 
-                image(stones[0][4],x1*80,y2*80);
-                image(stones[0][4],x2*80,y2*80);
-               //health 
-               
-                soilHealth[a][w+9]=30;                 
-                soilHealth[b][w+9]=30;
-                soilHealth[a][w+9+1]=30;                 
-                soilHealth[b][w+9+1]=30;  
-                
-                 }
-                }
-              }
-              
-              for(int a=0 ; a<8 ; a+=4){
-                float x1=a+1;
-                float x2=a+1+1;
-                float y1=11;
-                float y2=12;
-                image(stones[0][4],x1*80,y1*80);
-                image(stones[0][4],x2*80,y1*80);  
-                image(stones[0][4],x1*80,y2*80);
-                image(stones[0][4],x2*80,y2*80);  
-               //health                
-                soilHealth[a+1][11]=30;                 
-                soilHealth[a+1+1][11]=30;
-                soilHealth[a+1][12]=30;                 
-                soilHealth[a+1+1][12]=30; 
-                
-              }
-                                                       
-        //17-24    
-       
-        for(int w=18;w<24;w+=3){  
-            int count=2;
-            count+=3;
-          for(int a=0; a<=count; a++){                        
-            float x=a;
-            float y=w-a;     
-            image(stones[0][4],x*80,y*80);  
-           //health 
-           /*
-            soilHealth[a+w][23-a]=30;
-            */                 
-           }
         }
         
-        for(int w=-5;w<8;w+=3){  
-          for(int a=0; a<8; a++){     
-            float x=a+w;
-            float y=23-a;     
-            image(stones[0][4],x*80,y*80);
-          
-            
-           }
+    //9-16
+    
+      for(int i = 0; i <8; i++){ 
+        for(int j = 0; j <8; j++){
+        if(i==1||i==2||i==5||i==6){
+          if(j==0||j==3||j==4||j==7){
+          image(stones[0][4], i * SOIL_SIZE, (j+8)* SOIL_SIZE);
+          soilHealth[i][j+8] = 30;
+              }
+            }
+          }
         }
-        for(int w=-5;w<8;w+=3){  
-          for(int a=0; a<8; a++){     
-            float x=a+w;
-            float y=23-a;     
-            image(stones[1][4],x*80,y*80);
-           
-           }
+        for(int i = 0; i <8; i++){
+        for(int j = 0; j <8; j++){
+        if(i==0||i==3||i==4||i==7){
+          if(j==1||j==2||j==5||j==6){
+          image(stones[0][4], i * SOIL_SIZE, (j+8)* SOIL_SIZE);
+          soilHealth[i][j+8] = 30;
+              }
+            }
+          }
         }
         
-
-
-				
-
-			}
-		}
+    //17-24  
+    
+    for(int i = 0; i <8; i++){
+        for(int j= 0; j >-8; j--){
+        if(i==-j){
+        image(stones[0][4], i * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        soilHealth[i][j+23] = 30;
+      }
+     }
+    }
+    
+    for(int i = 0; i <7; i++){
+        for(int j= 0; j >-7; j--){
+        if(i==-j){
+        image(stones[0][4], (i+1) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        image(stones[1][4], (i+1) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        soilHealth[i+1][j+23] = 45;
+      }
+     }
+    }
+    
+    for(int i = 0; i <5; i++){
+        for(int j= 0; j >-5; j--){
+        if(i==-j){
+        image(stones[0][4], (i+3) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        soilHealth[i+3][j+23] = 30;
+      }
+     }
+    }
+    
+    for(int i = 0; i <4; i++){
+        for(int j= 0; j >-4; j--){
+        if(i==-j){
+        image(stones[0][4], (i+4) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        image(stones[1][4], (i+4) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        soilHealth[i+4][j+23] = 45;
+      }
+     }
+    }
+    
+    for(int i = 0; i <2; i++){
+        for(int j= 0; j >-2; j--){
+        if(i==-j){
+        image(stones[0][4], (i+6) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        soilHealth[i+6][j+23] = 30;
+      }
+     }
+    }
+    
+    for(int i = 0; i <1; i++){
+        for(int j= 0; j >-1; j--){
+        if(i==-j){
+        image(stones[0][4], (i+7) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        image(stones[1][4], (i+7) * SOIL_SIZE, (j+23) * SOIL_SIZE);
+        soilHealth[i+7][j+23] = 45;
+      }
+     }
+    }
+    
+    for(int i = 0; i <6; i++){
+        for(int j= 0; j >-6; j--){
+        if(i==-j){
+        image(stones[0][4], i * SOIL_SIZE, (j+21) * SOIL_SIZE);
+        image(stones[1][4], i * SOIL_SIZE, (j+21) * SOIL_SIZE);
+        soilHealth[i][j+21] = 45;
+      }
+     }
+    }
+    
+    for(int i = 0; i <5; i++){
+        for(int j= 0; j >-5; j--){
+        if(i==-j){
+        image(stones[0][4], i * SOIL_SIZE, (j+20) * SOIL_SIZE);
+        soilHealth[i][j+20] = 30;
+      }
+     }
+    }
+    
+    for(int i = 0; i <3; i++){
+        for(int j= 0; j >-3; j--){
+        if(i==-j){
+        image(stones[0][4], i * SOIL_SIZE, (j+18) * SOIL_SIZE);
+        image(stones[1][4], i * SOIL_SIZE, (j+18) * SOIL_SIZE);
+        soilHealth[i][j+18] = 45;
+      }
+     }
+    }
+    
+    for(int i = 0; i <2; i++){
+        for(int j= 0; j >-2; j--){
+        if(i==-j){
+        image(stones[0][4], i * SOIL_SIZE, (j+17) * SOIL_SIZE);
+        soilHealth[i][j+17] = 30;
+      }
+     }
+    }
+    
+    
+  
+		
 
 		// Cabbages
 		// > Remember to check if playerHealth is smaller than PLAYER_MAX_HEALTH!
